@@ -1,57 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <title>Girl Scouts at Politécnica</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magic Kingdom One-Tap Checklist</title>
+<style>
+:root {
+  --bg:#f7f2ea; --card:#fff; --text:#1d2433; --muted:#687386; --line:#e4ded6;
+  --blue:#2563eb; --green:#16a34a; --star:#f59e0b; --red:#dc2626;
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; }
+header { position:sticky; top:0; z-index:10; background:rgba(247,242,234,.96); backdrop-filter:blur(10px); padding:14px; border-bottom:1px solid var(--line); }
+h1 { margin:0; font-size:22px; }
+.subtitle { color:var(--muted); font-size:13px; margin:4px 0 10px; }
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.stat { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:8px; text-align:center; }
+.stat b { display:block; font-size:18px; }
+.stat span { font-size:11px; color:var(--muted); }
+.tabs { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; padding:10px 14px; background:var(--bg); position:sticky; top:106px; z-index:9; }
+.tab { border:1px solid var(--line); background:var(--card); border-radius:999px; padding:11px 6px; font-weight:800; font-size:14px; }
+.tab.active { background:var(--blue); color:white; border-color:var(--blue); }
+main { padding:4px 14px 92px; }
+.group-title { margin:18px 4px 8px; font-size:13px; font-weight:900; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+.card { display:grid; grid-template-columns:48px 1fr 48px; gap:8px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:10px; margin:8px 0; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+.check, .star { width:42px; height:42px; border-radius:14px; border:1px solid var(--line); background:#fff; font-size:24px; display:flex; align-items:center; justify-content:center; }
+.check.done { background:var(--green); border-color:var(--green); color:white; }
+.star.fav { background:var(--star); border-color:var(--star); color:white; }
+.name { font-size:16px; font-weight:800; line-height:1.18; }
+.note { color:var(--muted); font-size:12px; margin-top:3px; }
+.card.completed .name { text-decoration:line-through; color:var(--muted); }
+.empty { background:var(--card); border:1px dashed var(--line); border-radius:18px; padding:24px 12px; text-align:center; color:var(--muted); margin-top:14px; }
+.footer { position:fixed; left:0; right:0; bottom:0; background:rgba(247,242,234,.97); border-top:1px solid var(--line); padding:10px 14px calc(10px + env(safe-area-inset-bottom)); display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.footer button { border:0; border-radius:14px; padding:13px 8px; font-weight:900; background:#111827; color:white; }
+.footer button:first-child { background:white; color:#111827; border:1px solid var(--line); }
+.help { margin:6px 4px 10px; color:var(--muted); font-size:12px; line-height:1.35; }
+</style>
 </head>
 <body>
+<header>
+  <h1>🏰 Magic Kingdom Checklist</h1>
+  <div class="subtitle">Visible list + one-tap tracking. Tap ✓ for done, ★ for favorite.</div>
+  <div class="stats">
+    <div class="stat"><b id="done">0</b><span>Done</span></div>
+    <div class="stat"><b id="favs">0</b><span>Favorites</span></div>
+    <div class="stat"><b id="left">0</b><span>Left</span></div>
+  </div>
+</header>
 
-  <div class="container">
-    <div class="jumbotron bg-info text-white mt-3">
-      <h1>Girl Scouts at Politécnica</h1> 
-      <p>Coding Basics, Digital Game Design, and App Development badges.</p> 
-    </div>
-    <div class="row">
-      <div class="col">
-      </div>
-      <div class="col-6">
-        <div class="row">
-          <div class="col mt-3">
-            <a class="btn btn-primary btn-lg btn-block disabled" href="https://samuelemf.github.io/cadette/" role="button">Cadette</a>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col">
-            <a class="btn btn-danger btn-lg btn-block disabled" href="https://samuelemf.github.io/senior/" role="button">Senior</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col mt-3">
-            <a class="btn btn-warning btn-lg btn-block" href="https://samuelemf.github.io/ambassador/" role="button">Ambassador</a>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-sm">
-        <img src="https://lh3.googleusercontent.com/drive-viewer/AK7aPaCokCgKyS_KRSgRiqY7iOPUPnN62jg0ikjWoSABFPlZHfDsbzlBpP1Qgetq0uJnxwPF1mst7AVDP8qfk0l6lwy4beMV9g=s2560" alt="genCyber" class="img-fluid">
-      </div>
-      <div class="col-sm mt-3">
-        <img src="https://lh3.googleusercontent.com/drive-viewer/AK7aPaBUdPzRBUczDP06w0mel-YqokVixTaZ2IWv_7WgDAYBhFC1Qr8kKWSJrO82x3QR8Cq5N1GVAoNfXDB1b5NUhLQi7DK2=s1600" alt="genCyber" class="img-fluid">
-      </div>
-      <div class="col-sm mt-3">
-        <img src="https://lh3.googleusercontent.com/drive-viewer/AK7aPaDF3iR7QnVSkaSVsXNOPbkwUrzco0xTg-aVyHOFYw6812zXRMIXGz33zXCmQeS_c3RHFc0ToxeXQBlrLpqLRcjIWx50=s1600" alt="genCyber" class="img-fluid">
-      </div>
-    </div>
-  </div>
+<div class="tabs">
+  <button class="tab active" onclick="setTab('Attractions')">Attractions</button>
+  <button class="tab" onclick="setTab('Shows')">Shows</button>
+  <button class="tab" onclick="setTab('Favorites')">★ Favorites</button>
+</div>
+
+<main>
+  <div class="help">Use Disney’s app for live wait times/closures. This file saves progress only on this phone/browser.</div>
+  <div id="app"></div>
+</main>
+
+<div class="footer">
+  <button onclick="clearDone()">Clear Done</button>
+  <button onclick="resetAll()">Reset All</button>
+</div>
+
+<script>
+const ITEMS = [{"id": "a1", "category": "Attractions", "group": "Adventureland", "name": "Jungle Cruise", "note": "Boat ride"}, {"id": "a2", "category": "Attractions", "group": "Adventureland", "name": "Pirates of the Caribbean", "note": "Indoor boat ride"}, {"id": "a3", "category": "Attractions", "group": "Adventureland", "name": "The Magic Carpets of Aladdin", "note": "Spinner"}, {"id": "a4", "category": "Attractions", "group": "Adventureland", "name": "Swiss Family Treehouse", "note": "Walkthrough"}, {"id": "a5", "category": "Attractions", "group": "Adventureland", "name": "A Pirate’s Adventure – Treasures of the Seven Seas", "note": "Interactive"}, {"id": "a6", "category": "Attractions", "group": "Frontierland", "name": "Tiana’s Bayou Adventure", "note": "40 in / 102 cm"}, {"id": "a7", "category": "Attractions", "group": "Frontierland", "name": "Big Thunder Mountain Railroad", "note": "Temporarily closed/refurbishment — check app"}, {"id": "a8", "category": "Attractions", "group": "Frontierland", "name": "Walt Disney World Railroad – Frontierland", "note": "Train station/status may vary"}, {"id": "a9", "category": "Attractions", "group": "Liberty Square", "name": "Haunted Mansion", "note": "Indoor"}, {"id": "a10", "category": "Attractions", "group": "Liberty Square", "name": "Liberty Square Riverboat", "note": "May be closed — check app"}, {"id": "a11", "category": "Attractions", "group": "Fantasyland", "name": "Seven Dwarfs Mine Train", "note": "38 in / 97 cm"}, {"id": "a12", "category": "Attractions", "group": "Fantasyland", "name": "Peter Pan’s Flight", "note": "Indoor"}, {"id": "a13", "category": "Attractions", "group": "Fantasyland", "name": "“it’s a small world”", "note": "Indoor boat ride"}, {"id": "a14", "category": "Attractions", "group": "Fantasyland", "name": "The Many Adventures of Winnie the Pooh", "note": "Indoor"}, {"id": "a15", "category": "Attractions", "group": "Fantasyland", "name": "Under the Sea – Journey of The Little Mermaid", "note": "Indoor"}, {"id": "a16", "category": "Attractions", "group": "Fantasyland", "name": "Dumbo the Flying Elephant", "note": "Spinner"}, {"id": "a17", "category": "Attractions", "group": "Fantasyland", "name": "The Barnstormer", "note": "35 in / 89 cm"}, {"id": "a18", "category": "Attractions", "group": "Fantasyland", "name": "Mad Tea Party", "note": "Spinner"}, {"id": "a19", "category": "Attractions", "group": "Fantasyland", "name": "Prince Charming Regal Carrousel", "note": "Carousel"}, {"id": "a20", "category": "Attractions", "group": "Fantasyland", "name": "Casey Jr. Splash ‘N’ Soak Station", "note": "Water play"}, {"id": "a21", "category": "Attractions", "group": "Fantasyland", "name": "Walt Disney World Railroad – Fantasyland", "note": "Train station"}, {"id": "a22", "category": "Attractions", "group": "Tomorrowland", "name": "TRON Lightcycle / Run", "note": "48 in / 122 cm"}, {"id": "a23", "category": "Attractions", "group": "Tomorrowland", "name": "Space Mountain", "note": "44 in / 112 cm"}, {"id": "a24", "category": "Attractions", "group": "Tomorrowland", "name": "Buzz Lightyear’s Space Ranger Spin", "note": "Indoor"}, {"id": "a25", "category": "Attractions", "group": "Tomorrowland", "name": "Tomorrowland Transit Authority PeopleMover", "note": "Slow ride"}, {"id": "a26", "category": "Attractions", "group": "Tomorrowland", "name": "Tomorrowland Speedway", "note": "32 in / 82 cm"}, {"id": "a27", "category": "Attractions", "group": "Tomorrowland", "name": "Astro Orbiter", "note": "Spinner"}, {"id": "a28", "category": "Attractions", "group": "Tomorrowland", "name": "Walt Disney’s Carousel of Progress", "note": "Indoor rotating theater"}, {"id": "a29", "category": "Attractions", "group": "Main Street, U.S.A.", "name": "Walt Disney World Railroad – Main Street, U.S.A.", "note": "Train station"}, {"id": "a30", "category": "Attractions", "group": "Main Street, U.S.A.", "name": "Main Street Vehicles", "note": "Limited hours"}, {"id": "a31", "category": "Attractions", "group": "Main Street, U.S.A.", "name": "Cinderella Castle", "note": "Photo / walkthrough area"}, {"id": "s32", "category": "Shows", "group": "Fireworks / Parades", "name": "Happily Ever After", "note": "Nighttime fireworks"}, {"id": "s33", "category": "Shows", "group": "Fireworks / Parades", "name": "Disney Starlight: Dream the Night Away", "note": "Night parade"}, {"id": "s34", "category": "Shows", "group": "Fireworks / Parades", "name": "Disney Festival of Fantasy Parade", "note": "Day parade"}, {"id": "s35", "category": "Shows", "group": "Fireworks / Parades", "name": "Disney Adventure Friends Cavalcade", "note": "Cavalcade"}, {"id": "s36", "category": "Shows", "group": "Stage / Indoor Shows", "name": "Mickey’s Magical Friendship Faire", "note": "Castle stage show"}, {"id": "s37", "category": "Shows", "group": "Stage / Indoor Shows", "name": "Mickey’s PhilharMagic", "note": "Indoor 3D show"}, {"id": "s38", "category": "Shows", "group": "Stage / Indoor Shows", "name": "Monsters Inc. Laugh Floor", "note": "Indoor comedy show"}, {"id": "s39", "category": "Shows", "group": "Stage / Indoor Shows", "name": "Country Bear Musical Jamboree", "note": "Indoor show"}, {"id": "s40", "category": "Shows", "group": "Stage / Indoor Shows", "name": "Walt Disney’s Enchanted Tiki Room", "note": "Indoor show"}, {"id": "s41", "category": "Shows", "group": "Stage / Indoor Shows", "name": "The Hall of Presidents", "note": "Indoor show"}, {"id": "s42", "category": "Shows", "group": "Stage / Indoor Shows", "name": "Let the Magic Begin", "note": "Welcome show"}, {"id": "s43", "category": "Shows", "group": "Live Entertainment", "name": "The Dapper Dans", "note": "Main Street live singers"}, {"id": "s44", "category": "Shows", "group": "Live Entertainment", "name": "Casey’s Corner Pianist", "note": "Live piano"}, {"id": "s45", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Mickey at Town Square Theater", "note": "Character"}, {"id": "s46", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Cinderella and a Visiting Princess", "note": "Princess Fairytale Hall"}, {"id": "s47", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Princess Tiana and a Visiting Princess", "note": "Princess Fairytale Hall"}, {"id": "s48", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Ariel at Her Grotto", "note": "Character"}, {"id": "s49", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Mirabel at Fairytale Garden", "note": "Character"}, {"id": "s50", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Winnie the Pooh and Tigger", "note": "Character"}, {"id": "s51", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Characters from Aladdin in Adventureland", "note": "Character"}, {"id": "s52", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Meet Peter Pan in Fantasyland", "note": "Character"}, {"id": "s53", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Pete’s Silly Sideshow Character Meets", "note": "Character"}, {"id": "s54", "category": "Shows", "group": "Characters / Meet & Greets", "name": "Enchanted Tales with Belle", "note": "Interactive character experience"}];
+let active = "Attractions";
+let state = JSON.parse(localStorage.getItem("mk_state_v2") || "{}");
+
+function st(id) {
+  if (!state[id]) state[id] = {done:false, fav:false};
+  return state[id];
+}
+function save() { localStorage.setItem("mk_state_v2", JSON.stringify(state)); }
+function setTab(tab) { active = tab; render(); window.scrollTo({top:0, behavior:"smooth"}); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+function render() {
+  document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.textContent.includes(active) || (active==="Favorites" && b.textContent.includes("Favorites"))));
+  let arr = ITEMS.filter(i => active === "Favorites" ? st(i.id).fav : i.category === active);
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  if (!arr.length) {
+    app.innerHTML = '<div class="empty">No favorites yet. Tap ★ on attractions or shows to add them here.</div>';
+  } else {
+    let current = "";
+    arr.forEach(item => {
+      if (item.group !== current) {
+        current = item.group;
+        const h = document.createElement("div");
+        h.className = "group-title";
+        h.textContent = current;
+        app.appendChild(h);
+      }
+      app.appendChild(card(item));
+    });
+  }
+  updateStats();
+}
+
+function card(item) {
+  const s = st(item.id);
+  const div = document.createElement("div");
+  div.className = "card" + (s.done ? " completed" : "");
+  div.innerHTML = `
+    <button class="check ${s.done ? "done" : ""}" title="Done">${s.done ? "✓" : ""}</button>
+    <div><div class="name">${esc(item.name)}</div><div class="note">${esc(item.note)} · ${esc(item.category)}</div></div>
+    <button class="star ${s.fav ? "fav" : ""}" title="Favorite">★</button>
+  `;
+  div.querySelector(".check").onclick = () => { s.done = !s.done; save(); render(); };
+  div.querySelector(".star").onclick = () => { s.fav = !s.fav; save(); render(); };
+  return div;
+}
+
+function updateStats() {
+  const done = ITEMS.filter(i => st(i.id).done).length;
+  const favs = ITEMS.filter(i => st(i.id).fav).length;
+  document.getElementById("done").textContent = done;
+  document.getElementById("favs").textContent = favs;
+  document.getElementById("left").textContent = ITEMS.length - done;
+}
+function clearDone() {
+  if (!confirm("Clear completed checkmarks only?")) return;
+  ITEMS.forEach(i => st(i.id).done = false);
+  save(); render();
+}
+function resetAll() {
+  if (!confirm("Reset all done marks and favorites?")) return;
+  state = {};
+  save(); render();
+}
+render();
+</script>
 </body>
 </html>
